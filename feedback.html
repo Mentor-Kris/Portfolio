@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Website Feedback</title>
+  <style>
+    
+    body {
+      font-family: Arial;
+      background-color: #f2f2f2;
+    }
+
+    .container {
+      width: 400px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      margin-top: 80px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px gray;
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 15px;
+      /* space between buttons */
+    }
+
+    .buttons button {
+      flex: 1;
+    }
+    #successMessage {
+  display: none;
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: green;
+  color: white;
+  padding: 15px 30px;
+  border-radius: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  animation: fadeIn 1s;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    top: 0;
+  }
+  to {
+    opacity: 1;
+    top: 20px;
+  }
+}
+  </style>
+
+</head>
+
+<body>
+  <a href="index.html" style="
+    color:white;
+    text-decoration:none;
+    background:#007bff;
+    padding:05px 10px;
+    border-radius:8px;
+    font-size:18px;">
+    Back to Home
+</a>
+
+  <div class="container">
+
+    <h2> Feedback form </h2>
+
+<form onsubmit="return checkCaptcha()">
+
+      <label>Your Name</label>
+      <input type="text" placeholder="Enter your name" required>
+
+      <label>Email</label>
+      <input type="email" placeholder="Enter your email" required>
+
+      <label>How was your experience?</label>
+      <select>
+        <option>Excellent</option>
+        <option>Good</option>
+        <option>Average</option>
+        <option>Poor</option>
+      </select>
+
+      <label>Your Feedback</label>
+      <textarea rows="4" placeholder="Write your feedback here"></textarea>
+
+      <label>Captcha: <span id="num1"></span> + <span id="num2"></span> = ?</label>
+<input type="text" id="captcha" required>
+<button type="button" onclick="generateCaptcha()">Refresh Captcha</button>
+<br><br>
+
+      <div class="buttons">
+  <button type="submit">Submit Feedback</button>
+  <button type="reset">Reset</button>
+</div>
+    </form>
+
+  </div>
+<div id="successMessage">Thank you! Feedback submitted successfully 🎉</div>
+
+<script>
+let a, b;
+
+function generateCaptcha() {
+  a = Math.floor(Math.random() * 10);
+  b = Math.floor(Math.random() * 10);
+
+  document.getElementById("num1").innerHTML = a;
+  document.getElementById("num2").innerHTML = b;
+}
+
+function checkCaptcha() {
+  let userAnswer = document.getElementById("captcha").value;
+
+  if (parseInt(userAnswer) === a + b) {
+    document.getElementById("successMessage").style.display = "block";
+
+setTimeout(function() {
+  document.getElementById("successMessage").style.display = "none";
+  window.location.href = "index.html";
+}, 3000);
+
+return false;
+  } else {
+    alert("Wrong captcha! New captcha generated.");
+    generateCaptcha();
+    return false;
+  }
+}
+
+generateCaptcha();
+</script>
+</body>
+
+</html>
